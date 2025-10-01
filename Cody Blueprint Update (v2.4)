@@ -1,0 +1,63 @@
+Change Summary (v2.6)
+Objective: Refine the user workflow within Vault OS, fix UI inconsistencies across tabs, and improve code maintainability by externalizing prompt templates.
+
+Rationale: The previous UI logic for logging results was only present in the Co-CEO tab, creating an inconsistent and incomplete workflow. Furthermore, embedding large prompt strings directly in script.js bloated the file and made prompt management difficult. This update addresses these issues by creating a more logical user flow and separating prompts into their own files.
+
+Changes:
+
+Modified script.js:
+
+Workflow Logic:
+
+Removed the generic "결과 기록하기" (Log Result) button from the PM tab.
+
+Added a new button "설계도 확정 및 Engineer에게 전달" (Finalize Blueprint & Send to Engineer) to the PM tab. This button's function is to copy the PM's output (the blueprint) directly into the Engineer's input textarea, creating a seamless handoff.
+
+The Engineer tab remains focused on code generation, with the "프롬프트 복사" (Copy Prompt) button as its primary action. The final output is manually copied by the user into their project.
+
+Prompt Management:Change Summary (v2.6)
+Objective: Refine the user workflow within Vault OS, fix UI inconsistencies across tabs, and improve code maintainability by externalizing prompt templates.
+
+Rationale: The previous UI logic for logging results was only present in the Co-CEO tab, creating an inconsistent and incomplete workflow. Furthermore, embedding large prompt strings directly in script.js bloated the file and made prompt management difficult. This update addresses these issues by creating a more logical user flow and separating prompts into their own files.
+
+Changes:
+
+Modified script.js:
+
+Workflow Logic:
+
+Removed the generic "결과 기록하기" (Log Result) button from the PM tab.
+
+Added a new button "설계도 확정 및 Engineer에게 전달" (Finalize Blueprint & Send to Engineer) to the PM tab. This button's function is to copy the PM's output (the blueprint) directly into the Engineer's input textarea, creating a seamless handoff.
+
+The Engineer tab remains focused on code generation, with the "프롬프트 복사" (Copy Prompt) button as its primary action. The final output is manually copied by the user into their project.
+
+Prompt Management:
+
+Removed the large, hardcoded prompts object.
+
+The copyPrompt function now dynamically fetches the content of the relevant prompt file (e.g., co_ceo_prompt.md, pm_prompt.md) in addition to the constitution file. This makes the script cleaner and decouples prompts from application logic.
+
+Created New Prompt Files:
+
+co_ceo_prompt.md: Contains the full text for the Co-CEO prompt.
+
+pm_prompt.md: Contains the full text for the PM prompt.
+
+engineer_prompt.md: Contains the full text for the Engineer prompt.
+
+This update completes the core workflow logic of the Vault OS, making it more intuitive and robust, while significantly improving the project's structure and maintainability.
+
+Removed the large, hardcoded prompts object.
+
+The copyPrompt function now dynamically fetches the content of the relevant prompt file (e.g., co_ceo_prompt.md, pm_prompt.md) in addition to the constitution file. This makes the script cleaner and decouples prompts from application logic.
+
+Created New Prompt Files:
+
+co_ceo_prompt.md: Contains the full text for the Co-CEO prompt.
+
+pm_prompt.md: Contains the full text for the PM prompt.
+
+engineer_prompt.md: Contains the full text for the Engineer prompt.
+
+This update completes the core workflow logic of the Vault OS, making it more intuitive and robust, while significantly improving the project's structure and maintainability.
