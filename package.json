@@ -1,0 +1,17 @@
+{
+  "name": "vault-os-cloud-commander",
+  "version": "1.0.0",
+  "description": "Vault OS: Auto-commit and deploy to Firebase Hosting.",
+  "main": "index.js",
+  "scripts": {
+    "go": "git add . && git commit -m \"Ship: Auto-deploy - $(date '+%Y%m%d-%H%M%S')\" && git push && firebase deploy --only hosting"
+  },
+  "keywords": [
+    "firebase",
+    "hosting",
+    "git",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC"
+}
