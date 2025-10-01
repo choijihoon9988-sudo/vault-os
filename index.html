@@ -3,192 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vault OS - Strategic Command Center v2.7 (Cloud-Enabled)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
-    
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
-
-        // ✅ 4단계 완료: 당신이 제공한 실제 Firebase 설정 값을 반영했습니다.
-        const firebaseConfig = {
-            apiKey: "AIzaSyBA2vv10SJMlxim3LUJl0MkCGn-eAP-PcA",
-            authDomain: "vault-os.firebaseapp.com",
-            projectId: "vault-os",
-            storageBucket: "vault-os.firebasestorage.app",
-            messagingSenderId: "1029540835997",
-            appId: "1:1029540835997:web:fd2f77f2a88a64390dda74"
-        };
-        
-        // 전역에서 사용할 수 있도록 초기화하고 window 객체에 할당 (script.js에서 사용)
-        window.firebaseApp = initializeApp(firebaseConfig);
-        window.db = getFirestore(window.firebaseApp);
-    </script>
-    
+    <title>Friction-Zero OS</title>
+    <!-- 파비콘: JavaScript를 통해 동적으로 변경될 예정 -->
+    <link id="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔵</text></svg>">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="p-4 lg:p-8 min-h-screen">
+<body>
+    <div id="app-container">
+        <!-- 긍정 확언 메시지 (숨겨진 상태) -->
+        <div id="priming-overlay">
+            <p id="priming-message"></p>
+        </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full w-full">
-        
-        <aside class="lg:col-span-3 h-full flex flex-col gap-6">
-            <div class="glass-pane p-5 rounded-lg">
-                <h2 class="text-xl font-bold mb-4 border-b border-b-gray-700 pb-2">📜 헌법 (The Constitution)</h2>
-                <div id="constitution-content">
-                    <div class="mb-6">
-                        <h3 class="font-semibold text-indigo-400 mb-2">⭐ 북극성 (North Star)</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">"Prompt Vault는 사용자의 파편화된 생각을 '경쟁 우위를 갖춘 지적 자산'으로 즉시 전환시키는 유일한 도구다."</p>
-                    </div>
-                    <details class="mb-6">
-                        <summary class="font-semibold text-indigo-400 cursor-pointer">👤 핵심 페르소나 ('김기획')</summary>
-                        <div class="mt-2 pl-4 border-l-2 border-gray-700 text-sm">
-                            <p class="mb-2"><strong class="text-gray-300">1. 통제 상실 공포:</strong> 자산 손실을 실존적 위협으로 느낌.</p>
-                            <p class="mb-2"><strong class="text-gray-300">2. 인지 부하 회피:</strong> 창작과 정리를 분리하려는 본능이 있음.</p>
-                            <p><strong class="text-gray-300">3. 즉각적 보상 민감도:</strong> 즉각적인 결과 변환에 큰 성취감을 느낌.</p>
-                        </div>
-                    </details>
-                    <div>
-                        <h3 class="font-semibold text-indigo-400 mb-2">⚖️ 10계명 (The Commandments)</h3>
-                        <ul class="space-y-2 text-sm pl-4 list-decimal list-outside text-gray-300">
-                            <li>저장 시 정리를 강요하지 말라.</li>
-                            <li>'비서 AI'가 아닌 '전략가 AI'가 되라.</li>
-                            <li>설정과 탭을 늘리지 말라.</li>
-                            <li>일반 노트 앱이 되려 하지 말라.</li>
-                            <li>MVP에서 커뮤니티 환상을 버려라.</li>
-                            <li>모든 프롬프트를 다루려 하지 말라.</li>
-                            <li>화려한 대시보드를 만들지 말라.</li>
-                            <li>사용자 데이터를 존중하라.</li>
-                            <li>온보딩은 '아하 모먼트'에만 집중하라.</li>
-                            <li>원칙은 데이터로만 개정하라.</li>
-                        </ul>
+        <!-- 로그인/회원가입 뷰 -->
+        <section id="auth-view">
+            <!-- 기존 로그인/회원가입 폼 -->
+            <div class="auth-form__container">
+                <form id="login-form" class="auth-form">
+                    <h2>로그인</h2>
+                    <div class="auth-form__field"><label for="login-email">이메일</label><input type="email" id="login-email" required></div>
+                    <div class="auth-form__field"><label for="login-password">비밀번호</label><input type="password" id="login-password" required></div>
+                    <p class="auth-form__error hidden"></p>
+                    <button type="submit" class="button button--primary">로그인</button>
+                    <p class="auth-form__switch">계정이 없으신가요? <button type="button" id="show-signup">회원가입</button></p>
+                </form>
+                <form id="signup-form" class="auth-form hidden">
+                    <h2>회원가입</h2>
+                    <div class="auth-form__field"><label for="signup-email">이메일</label><input type="email" id="signup-email" required></div>
+                    <div class="auth-form__field"><label for="signup-password">비밀번호</label><input type="password" id="signup-password" required minlength="6"></div>
+                    <p class="auth-form__error hidden"></p>
+                    <button type="submit" class="button button--primary">회원가입</button>
+                    <p class="auth-form__switch">이미 계정이 있으신가요? <button type="button" id="show-login">로그인</button></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- 메인 앱 뷰 -->
+        <main id="app-view" class="hidden">
+            <header class="app-header">
+                <div class="app-header__title">
+                    <h1>Friction-Zero OS</h1>
+                    <div class="gamification-stats">
+                        <span>🔥 연속 <span id="streak-count">0</span>일</span>
+                        <span class="separator">|</span>
+                        <span>LV. <span id="user-level">1</span></span>
                     </div>
                 </div>
-            </div>
-        </aside>
+                <div class="app-header__user-info">
+                    <span id="user-email"></span>
+                    <button id="logout-btn" class="button button--secondary">로그아웃</button>
+                </div>
+            </header>
 
-        <main class="lg:col-span-6 h-full flex flex-col gap-6">
-            <div class="glass-pane p-5 rounded-lg flex-grow flex flex-col">
-                <h2 class="text-xl font-bold mb-4 border-b border-b-gray-700 pb-2">🚀 실행 (The Execution Bay)</h2>
+            <!-- 컨디션 선택 화면 -->
+            <section id="condition-selector">
+                <h2>오늘의 컨디션은 어떠신가요?</h2>
+                <div class="condition-selector__buttons">
+                    <button class="button" data-condition="최상">최상</button>
+                    <button class="button" data-condition="좋음">좋음</button>
+                    <button class="button" data-condition="보통">보통</button>
+                    <button class="button" data-condition="나쁨">나쁨</button>
+                </div>
+            </section>
+
+            <!-- 타이머 화면 -->
+            <section id="timer-view" class="hidden">
+                <div id="daily-goal-progress" class="hidden">
+                    <div class="progress-bar__container">
+                        <div id="progress-bar" class="progress-bar__bar"></div>
+                    </div>
+                    <span id="goal-text"></span>
+                </div>
+
+                <div class="timer">
+                    <div class="focus-counter" data-tooltip="오늘 획득한 집중 에너지">
+                        <span id="focus-energy-display"></span>
+                    </div>
+                    <p class="timer__mode">집중</p>
+                    <p class="timer__display">25:00</p>
+                    <div class="timer__controls">
+                        <button id="start-btn" class="button button--primary">시작</button>
+                        <button id="pause-btn" class="button button--secondary">일시정지</button>
+                        <button id="reset-btn" class="button">리셋</button>
+                    </div>
+                </div>
+
+                <div class="settings">
+                    <div class="settings__group">
+                        <h3>뇌과학 프리셋</h3>
+                        <div class="settings__presets">
+                            <button class="button button--preset" data-focus="25" data-rest="5">25:05</button>
+                            <button class="button button--preset" data-focus="50" data-rest="10">50:10</button>
+                        </div>
+                    </div>
+                    <div class="settings__group">
+                        <h3>알림 소리</h3>
+                        <select id="alarm-sound-select" class="settings__select">
+                            <option value="alarm_clock">알람시계</option>
+                            <option value="digital_watch">디지털 시계</option>
+                            <option value="bell">종소리</option>
+                        </select>
+                    </div>
+                </div>
                 
-                <div id="roadmap" class="mb-6">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-indigo-400 mb-2">전략 로드맵</h3>
-                        <button id="swot-button" class="text-sm bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-md">SWOT 분석 보기</button>
-                    </div>
-                    <div class="p-4 bg-gray-900 rounded-md">
-                        <h4 class="font-bold mb-2 text-green-400">P0: 즉시 실행 (The True MVP)</h4>
-                        <ul id="p0-tasks" class="space-y-1 text-sm">
-                            <li><input type="checkbox" id="task1" data-id="1" class="mr-2">무중단 캡처</li>
-                            <li><input type="checkbox" id="task2" data-id="2" class="mr-2">전략가 AI 초안 생성</li>
-                            <li><input type="checkbox" id="task3" data-id="3" class="mr-2">좌우 분할 비교 UI</li>
-                            <li><input type="checkbox" id="task4" data-id="4" class="mr-2">'정리 모드' 반자동 분류</li>
-                        </ul>
-                    </div>
+                <div class="main-actions">
+                    <button id="forest-btn" class="button button--secondary">집중의 숲</button>
+                    <button id="badges-btn" class="button button--secondary">나의 배지</button>
+                    <button id="weekly-report-btn" class="button button--secondary">주간 회고</button>
+                    <button id="end-day-btn" class="button button--primary">하루 마감</button>
                 </div>
-
-                <div id="ai-c-suite" class="flex-grow flex flex-col">
-                    <h3 class="text-lg font-semibold text-indigo-400 mb-2">Vault OS: AI 집행부</h3>
-                    <div class="flex border-b border-gray-700">
-                        <button data-tab="co-ceo" class="tab-button py-2 px-4 text-sm font-semibold border-b-2 border-indigo-500 text-white">Co-CEO</button>
-                        <button data-tab="pm" class="tab-button py-2 px-4 text-sm font-semibold border-transparent text-gray-400">PM</button>
-                        <button data-tab="engineer" class="tab-button py-2 px-4 text-sm font-semibold border-transparent text-gray-400">Engineer</button>
-                        <button data-tab="code-review" class="tab-button py-2 px-4 text-sm font-semibold border-transparent text-gray-400">코드 리뷰</button>
-                    </div>
-                    <div class="flex-grow mt-4">
-                        <div id="co-ceo-tab" class="tab-content active h-full flex-col">
-                            <label for="co-ceo-input" class="text-sm mb-2 font-semibold">CEO의 새로운 아이디어를 보고하세요:</label>
-                            <textarea id="co-ceo-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="새로운 아이디어..."></textarea>
-                            <div class="mt-4 border-t border-gray-700 pt-4 flex-grow flex flex-col">
-                                <label for="co-ceo-output" class="text-sm mb-2 font-semibold">Co-CEO 검토 결과:</label>
-                                <textarea id="co-ceo-output" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 flex-grow" placeholder="AI의 답변을 여기에..."></textarea>
-                            </div>
-                             <div class="flex items-center gap-2 mt-4">
-                                <button onclick="copyPrompt('co-ceo')" class="flex-1 text-sm bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">프롬프트 복사</button>
-                                <button onclick="logDecision('co-ceo')" class="flex-1 text-sm bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md">결정 기록하기</button>
-                            </div>
-                        </div>
-                        <div id="pm-tab" class="tab-content h-full flex-col">
-                             <label for="pm-input" class="text-sm mb-2 font-semibold">Co-CEO가 승인한 아이디어를 전달하세요:</label>
-                            <textarea id="pm-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="승인된 아이디어..."></textarea>
-                             <div class="mt-4 border-t border-gray-700 pt-4 flex-grow flex flex-col">
-                                <label for="pm-output" class="text-sm mb-2 font-semibold">PM 상세 명세서:</label>
-                                <textarea id="pm-output" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 flex-grow" placeholder="AI가 생성한 명세서를 여기에..."></textarea>
-                            </div>
-                            <div class="flex items-center gap-2 mt-4">
-                                <button onclick="copyPrompt('pm')" class="flex-1 text-sm bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">프롬프트 복사</button>
-                                <button onclick="finalizeBlueprint()" class="flex-1 text-sm bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md">설계도 확정 및 Engineer에게 전달</button>
-                            </div>
-                        </div>
-                        <div id="engineer-tab" class="tab-content h-full flex-col">
-                            <label for="engineer-input" class="text-sm mb-2 font-semibold">PM의 상세 명세서와 관련 코드를 전달하세요:</label>
-                            <textarea id="engineer-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="PM 명세서와 기존 코드를 여기에..."></textarea>
-                             <div class="mt-4 border-t border-gray-700 pt-4 flex-grow flex flex-col">
-                                <label for="engineer-output" class="text-sm mb-2 font-semibold">Engineer 최종 코드:</label>
-                                <textarea id="engineer-output" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 flex-grow" placeholder="AI가 생성한 최종 코드를 여기에..."></textarea>
-                            </div>
-                            <div class="flex items-center gap-2 mt-4">
-                                <button onclick="copyPrompt('engineer')" class="w-full text-sm bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">프롬프트 복사</button>
-                            </div>
-                        </div>
-                        <div id="code-review-tab" class="tab-content h-full flex-col">
-                            <label for="code-review-input" class="text-sm mb-2 font-semibold">Engineer가 생성한 코드를 여기에 전달하세요:</label>
-                            <textarea id="code-review-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="최종 구현 코드를 여기에 붙여넣으세요..."></textarea>
-                             <div class="mt-4 border-t border-gray-700 pt-4 flex-grow flex flex-col">
-                                <label for="code-review-output" class="text-sm mb-2 font-semibold">코드 리뷰 결과 및 피드백:</label>
-                                <textarea id="code-review-output" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 flex-grow" placeholder="AI가 생성한 리뷰 결과를 여기에..."></textarea>
-                            </div>
-                            <div class="flex items-center gap-2 mt-4">
-                                <button onclick="copyPrompt('code-review')" class="flex-1 text-sm bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">프롬프트 복사</button>
-                                <button onclick="logDecision('code-review')" class="flex-1 text-sm bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md">리뷰 결과 기록하기</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </section>
         </main>
-
-        <aside class="lg:col-span-3 h-full flex flex-col gap-6">
-            <div class="glass-pane p-5 rounded-lg flex-grow flex flex-col">
-                <h2 class="text-xl font-bold mb-4 border-b border-b-gray-700 pb-2">📖 항해 일지 (Captain's Log)</h2>
-                
-                <div id="progress" class="mb-6">
-                    <h3 class="font-semibold text-indigo-400 mb-2">MVP 진행률</h3>
-                    <div class="w-full bg-gray-700 rounded-full h-2.5">
-                        <div id="progress-bar" class="bg-green-500 h-2.5 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p id="progress-text" class="text-center text-sm mt-1">0%</p>
-                </div>
-
-                <div id="decision-log-container" class="mb-6 flex-grow flex flex-col" style="min-height: 200px;">
-                    <h3 class="font-semibold text-indigo-400 mb-2">결정 로그 (Decision Log)</h3>
-                    <ul id="decision-log" class="text-sm space-y-2 overflow-y-auto flex-grow bg-gray-900 p-2 rounded-md"></ul>
-                </div>
-                
-                <div id="parking-lot-container" class="flex-grow flex flex-col" style="min-height: 200px;">
-                    <h3 class="font-semibold text-indigo-400 mb-2">아이디어 주차장 (Parking Lot)</h3>
-                    <ul id="parking-lot" class="text-sm space-y-2 overflow-y-auto flex-grow bg-gray-900 p-2 rounded-md"></ul>
-                </div>
-            </div>
-        </aside>
     </div>
-    
-    <div id="swot-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4">
-        <div class="glass-pane rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold">SWOT 분석</h2>
-                <button id="close-swot-modal" class="text-2xl">&times;</button>
+
+    <!-- 모달 레이어 -->
+    <div id="modal-layer">
+        <!-- 일일 목표 설정 모달 -->
+        <div id="goal-modal" class="modal">
+            <div class="modal__overlay"></div>
+            <div class="modal__content">
+                <h2>오늘의 목표</h2>
+                <p>오늘 몇 개의 집중 세션을 완료하시겠습니까?</p>
+                <form id="goal-form">
+                    <input type="number" id="goal-input" min="1" max="20" value="4" class="settings__input">
+                    <button type="submit" class="button button--primary">목표 설정하고 시작</button>
+                </form>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-                <div class="bg-green-900/50 p-4 rounded"><h3 class="font-bold text-lg text-green-300 mb-2">S: 강점</h3><ul class="list-disc pl-5 space-y-2"><li>날카로운 문제 정의 및 페르소나 분석</li><li>독창적이고 강력한 핵심 기능 (전략가 AI)</li><li>치밀한 사용자 경험(UX) 설계 (아하 모먼트)</li><li>플랫폼 독립성 (중앙 허브)</li></ul></div>
-                <div class="bg-red-900/50 p-4 rounded"><h3 class="font-bold text-lg text-red-300 mb-2">W: 약점</h3><ul class="list-disc pl-5 space-y-2"><li>높은 기술적 구현 난이도 (전략가 AI)</li><li>'관리 도구'라는 본질적 한계</li><li>미검증된 MVP (기획 단계)</li><li>구체적인 수익 모델의 부재</li></ul></div>
-                <div class="bg-blue-900/50 p-4 rounded"><h3 class="font-bold text-lg text-blue-300 mb-2">O: 기회</h3><ul class="list-disc pl-5 space-y-2"><li>폭발적으로 성장하는 초기 시장</li><li>B2C 니치 마켓의 공백 (특히 한국)</li><li>명확한 확장 로드맵 (개인 → 팀 → 생태계)</li><li>데이터 기반 추가 가치 창출 가능성</li></ul></div>
-                <div class="bg-yellow-900/50 p-4 rounded"><h3 class="font-bold text-lg text-yellow-300 mb-2">T: 위협</h3><ul class="list-disc pl-5 space-y-2"><li>거대 AI 플레이어의 시장 진입</li><li>사용자의 구독 피로감</li><li>기술 트렌드의 빠른 변화</li><li>AI 신뢰도 및 데이터 보안 문제</li></ul></div>
+        </div>
+        
+        <!-- 세션 전환 모달 -->
+        <div id="session-transition-modal" class="modal">
+            <div class="modal__overlay"></div>
+            <div class="modal__content text-center">
+                <h2 id="transition-title"></h2>
+                <p id="transition-message"></p>
+                <button id="next-session-btn" class="button button--primary"></button>
+            </div>
+        </div>
+
+        <!-- 세션 기록 모달 -->
+        <div id="log-modal" class="modal">
+            <div class="modal__overlay" data-close-modal></div>
+            <div class="modal__content">
+                <button class="modal__close-btn" data-close-modal>&times;</button>
+                <h2 id="log-modal-title">세션 기록</h2>
+                <form id="log-form">
+                    <!-- 기존 필드들 -->
+                    <div class="form-field"><label for="log-activity">지난 시간 동안 무엇에 집중했나요?</label><textarea id="log-activity" rows="3" required></textarea></div>
+                    <div class="form-field"><label>집중을 방해한 '마찰'이 있었나요?</label><div id="friction-tags" class="tag-group"></div></div>
+                    <div class="form-field"><label>마찰 발생 시 느꼈던 감정은 무엇인가요?</label><div id="emotion-tags" class="tag-group"></div></div>
+                    <div class="form-field"><label for="distraction-input">딴생각 저장소 (입력 후 Enter)</label><input type="text" id="distraction-input" placeholder="예: 저녁 장보기"><ul id="distraction-list"></ul></div>
+                    <button type="submit" class="button button--primary">저장하고 계속하기</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 집중의 숲 모달 -->
+        <div id="forest-modal" class="modal">
+            <div class="modal__overlay" data-close-modal></div>
+            <div class="modal__content">
+                <button class="modal__close-btn" data-close-modal>&times;</button>
+                <h2>나의 집중의 숲</h2>
+                <p>뽀모도로는 씨앗을, 긴 집중은 나무를 심습니다.</p>
+                <div id="forest-grid" class="forest-grid"></div>
+            </div>
+        </div>
+        
+        <!-- 배지 모달 -->
+        <div id="badges-modal" class="modal">
+            <div class="modal__overlay" data-close-modal></div>
+            <div class="modal__content">
+                <button class="modal__close-btn" data-close-modal>&times;</button>
+                <h2>나의 배지</h2>
+                <p>특정 마찰을 극복하거나 목표를 달성하면 배지를 얻습니다.</p>
+                <div id="badges-container" class="badges-container"></div>
+            </div>
+        </div>
+
+        <!-- 주간/일일 리포트 모달 (통합) -->
+        <div id="report-modal" class="modal">
+            <div class="modal__overlay" data-close-modal></div>
+            <div class="modal__content">
+                <button class="modal__close-btn" data-close-modal>&times;</button>
+                <h2 id="report-modal-title">데일리 리포트</h2>
+                <div id="report-content"></div>
+                <button id="show-system-btn" class="button button--primary hidden">시스템 제작</button>
             </div>
         </div>
     </div>
-
-    <script src="script.js" type="module"></script>
-
+    <script type="module" src="script.js"></script>
 </body>
 </html>
+
