@@ -3,19 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vault OS - Strategic Command Center v2.7</title>
-    <!-- External Libraries -->
+    <title>Vault OS - Strategic Command Center v2.7 (Cloud-Enabled)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
-    <!-- Local Stylesheet -->
+    
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+
+        // ⚠️ TODO: [중요] YOUR_FIREBASE_CONFIG 부분을 실제 프로젝트 설정 값으로 반드시 교체해야 함
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        // 전역에서 사용할 수 있도록 초기화하고 window 객체에 할당 (script.js에서 사용)
+        window.firebaseApp = initializeApp(firebaseConfig);
+        window.db = getFirestore(window.firebaseApp);
+    </script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="p-4 lg:p-8 min-h-screen">
 
-    <!-- Main Grid Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full w-full">
         
-        <!-- Left Column: The Constitution -->
         <aside class="lg:col-span-3 h-full flex flex-col gap-6">
             <div class="glass-pane p-5 rounded-lg">
                 <h2 class="text-xl font-bold mb-4 border-b border-b-gray-700 pb-2">📜 헌법 (The Constitution)</h2>
@@ -51,12 +67,10 @@
             </div>
         </aside>
 
-        <!-- Center Column: The Execution Bay -->
         <main class="lg:col-span-6 h-full flex flex-col gap-6">
             <div class="glass-pane p-5 rounded-lg flex-grow flex flex-col">
                 <h2 class="text-xl font-bold mb-4 border-b border-b-gray-700 pb-2">🚀 실행 (The Execution Bay)</h2>
                 
-                <!-- Roadmap Section -->
                 <div id="roadmap" class="mb-6">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-semibold text-indigo-400 mb-2">전략 로드맵</h3>
@@ -73,16 +87,15 @@
                     </div>
                 </div>
 
-                <!-- AI C-Suite Section -->
                 <div id="ai-c-suite" class="flex-grow flex flex-col">
                     <h3 class="text-lg font-semibold text-indigo-400 mb-2">Vault OS: AI 집행부</h3>
                     <div class="flex border-b border-gray-700">
                         <button data-tab="co-ceo" class="tab-button py-2 px-4 text-sm font-semibold border-b-2 border-indigo-500 text-white">Co-CEO</button>
                         <button data-tab="pm" class="tab-button py-2 px-4 text-sm font-semibold border-transparent text-gray-400">PM</button>
                         <button data-tab="engineer" class="tab-button py-2 px-4 text-sm font-semibold border-transparent text-gray-400">Engineer</button>
+                        <button data-tab="code-review" class="tab-button py-2 px-4 text-sm font-semibold border-transparent text-gray-400">코드 리뷰</button>
                     </div>
                     <div class="flex-grow mt-4">
-                        <!-- Co-CEO Tab -->
                         <div id="co-ceo-tab" class="tab-content active h-full flex-col">
                             <label for="co-ceo-input" class="text-sm mb-2 font-semibold">CEO의 새로운 아이디어를 보고하세요:</label>
                             <textarea id="co-ceo-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="새로운 아이디어..."></textarea>
@@ -95,7 +108,6 @@
                                 <button onclick="logDecision('co-ceo')" class="flex-1 text-sm bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md">결정 기록하기</button>
                             </div>
                         </div>
-                        <!-- PM Tab -->
                         <div id="pm-tab" class="tab-content h-full flex-col">
                              <label for="pm-input" class="text-sm mb-2 font-semibold">Co-CEO가 승인한 아이디어를 전달하세요:</label>
                             <textarea id="pm-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="승인된 아이디어..."></textarea>
@@ -108,7 +120,6 @@
                                 <button onclick="finalizeBlueprint()" class="flex-1 text-sm bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md">설계도 확정 및 Engineer에게 전달</button>
                             </div>
                         </div>
-                        <!-- Engineer Tab -->
                         <div id="engineer-tab" class="tab-content h-full flex-col">
                             <label for="engineer-input" class="text-sm mb-2 font-semibold">PM의 상세 명세서와 관련 코드를 전달하세요:</label>
                             <textarea id="engineer-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="PM 명세서와 기존 코드를 여기에..."></textarea>
@@ -120,12 +131,23 @@
                                 <button onclick="copyPrompt('engineer')" class="w-full text-sm bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">프롬프트 복사</button>
                             </div>
                         </div>
+                        <div id="code-review-tab" class="tab-content h-full flex-col">
+                            <label for="code-review-input" class="text-sm mb-2 font-semibold">Engineer가 생성한 코드를 여기에 전달하세요:</label>
+                            <textarea id="code-review-input" rows="4" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 focus:outline-none" placeholder="최종 구현 코드를 여기에 붙여넣으세요..."></textarea>
+                             <div class="mt-4 border-t border-gray-700 pt-4 flex-grow flex flex-col">
+                                <label for="code-review-output" class="text-sm mb-2 font-semibold">코드 리뷰 결과 및 피드백:</label>
+                                <textarea id="code-review-output" class="font-code w-full p-2 text-sm bg-gray-900 rounded-md border border-gray-700 flex-grow" placeholder="AI가 생성한 리뷰 결과를 여기에..."></textarea>
+                            </div>
+                            <div class="flex items-center gap-2 mt-4">
+                                <button onclick="copyPrompt('code-review')" class="flex-1 text-sm bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">프롬프트 복사</button>
+                                <button onclick="logDecision('code-review')" class="flex-1 text-sm bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md">리뷰 결과 기록하기</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
-        <!-- Right Column: The Captain's Log -->
         <aside class="lg:col-span-3 h-full flex flex-col gap-6">
             <div class="glass-pane p-5 rounded-lg flex-grow flex flex-col">
                 <h2 class="text-xl font-bold mb-4 border-b border-b-gray-700 pb-2">📖 항해 일지 (Captain's Log)</h2>
@@ -151,7 +173,6 @@
         </aside>
     </div>
     
-    <!-- SWOT Modal -->
     <div id="swot-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4">
         <div class="glass-pane rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
@@ -167,9 +188,7 @@
         </div>
     </div>
 
-    <!-- Local Javascript -->
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 
 </body>
 </html>
-
