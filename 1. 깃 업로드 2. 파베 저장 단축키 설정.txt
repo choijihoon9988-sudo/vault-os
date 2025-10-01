@@ -1,1 +1,18 @@
-npm run s -- ""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+깃허브: npm run s -- ""
+
+파이어베이스: npm run deploy
